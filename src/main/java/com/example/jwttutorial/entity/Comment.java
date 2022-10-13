@@ -1,6 +1,6 @@
 package com.example.jwttutorial.entity;
 
-import com.example.jwttutorial.dto.CommentRequestDto;
+import com.example.jwttutorial.dto.CommentDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,22 +20,18 @@ public class Comment extends Timestamped{
     private Long id;
 
     @Column(nullable = false)
-    private String name;
-    @Column(nullable = false)
-    private String comment;
+    private String contents;
 
     @ManyToOne
-    @JoinColumn(name="USER_ID", nullable = false)
+    @JoinColumn(name="post_id", nullable = false)
     private Post post;
 
-    public Comment(String name,String comment,Post post){
-        this.name=name;
-        this.comment=comment;
-        this.post=post;
+    public Comment(CommentDto commentDto, Post post) {
+        this.contents = commentDto.getContents();
+        this.post = post;
+    }
+    public void update(CommentDto commentDto){
+        this.contents =commentDto.getContents();
+    }
 
-    }
-    public Comment(CommentRequestDto requestDto) {
-        this.name=requestDto.getName();
-        this.comment=requestDto.getComment();
-    }
 }

@@ -27,9 +27,9 @@ public class PostContorller {
     //게시글 생성
     @PostMapping("/api/posts")
     public Post createPost(@RequestBody PostRequestDto requestDto) {
-        return postService.createPosts(requestDto);
-//        Post post = new Post(requestDto); //dto정보를 Post에 담기
-//        return postRepository.save(post);
+//        return postService.createPosts(requestDto);
+        Post post = new Post(requestDto); //dto정보를 Post에 담기
+        return postRepository.save(post);
     }
     //게시글 조회
     @GetMapping("/api/posts/{id}")

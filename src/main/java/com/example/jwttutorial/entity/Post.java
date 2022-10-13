@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor // 기본생성자를 만듭니다.
 @Getter
@@ -29,6 +31,11 @@ public class Post extends Timestamped { // 생성,수정 시간을 자동으로 
 
     @Column(nullable = false)
     private String content;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "post", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    //게시글삭제하면 댓글같이 삭제
+    private List<Comment> comments = new ArrayList<>();
 
     public Post(String title, String username, String password, String content) {
         this.title = title;

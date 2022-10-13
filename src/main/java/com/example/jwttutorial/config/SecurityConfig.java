@@ -3,7 +3,6 @@ package com.example.jwttutorial.config;
 
 import com.example.jwttutorial.jwt.JwtAccessDeniedHandler;
 import com.example.jwttutorial.jwt.JwtAuthenticationEntryPoint;
-import com.example.jwttutorial.jwt.JwtFilter;
 import com.example.jwttutorial.jwt.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -15,8 +14,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -64,9 +61,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/auth/**").permitAll()
-                .anyRequest().authenticated()   // 나머지 API 는 전부 인증 필요
-                //전체게시물조회
+//                .antMatchers("/api/posts").permitAll()
+//                .antMatchers("/api/posts/{id}").permitAll()
 //                .antMatchers("/api/comments").permitAll()
+//                .antMatchers("/api/comments/{id}").permitAll()
+
+                .anyRequest().authenticated()   // 나머지 API 는 전부 인증 필요
 //                .antMatchers("/api/posts").permitAll()
                 // JwtFilter 를 addFilterBefore 로 등록했던 JwtSecurityConfig 클래스를 적용
                 .and()
